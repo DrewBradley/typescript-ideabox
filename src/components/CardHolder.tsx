@@ -2,38 +2,18 @@ import React, { useState } from 'react';
 import { Card } from './Card'
 import './App.css';
 
-const initialTodos: Todo[] = [
-  {
-    text: 'Walk the dog',
-    complete: false,
-  },
-  {
-    text: 'Write app',
-    complete: true,
-  },
-];
+interface Props {
+  todos: Todo[];
+  completeToDo: completeToDo;
+}
 
-export const CardHolder: React.FC = () => {
-  const [todos, setTodos] = useState(initialTodos);
-
-  const completeToDo = (selectedTodo: Todo) => {
-    const newTodos = todos.map(todo => {
-      if (todo === selectedTodo) {
-        return {
-          ...todo,
-          complete: !todo.complete,
-        };
-      }
-      return todo;
-    });
-    setTodos(newTodos);
-  };
-
+export const CardHolder: React.FC<Props> = ({ todos, completeToDo }) => {
   return (
     <>
       <ul>
-        <Card todo={todos[0]} completeToDo={completeToDo} />
-        <Card todo={todos[1]} completeToDo={completeToDo} />
+      {todos.map(todo => (
+        <Card key={todo.text} todo={todo} completeToDo={completeToDo} />
+      ))}
       </ul>
     </>
   );
