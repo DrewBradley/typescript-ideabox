@@ -16,13 +16,24 @@ const initialTodos: Todo[] = [
 export const CardHolder: React.FC = () => {
   const [todos, setTodos] = useState(initialTodos);
 
-  const completeTodDo = 
+  const completeToDo = (selectedTodo: Todo) => {
+    const newTodos = todos.map(todo => {
+      if (todo === selectedTodo) {
+        return {
+          ...todo,
+          complete: !todo.complete,
+        };
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
 
   return (
     <>
       <ul>
-        <Card todo={todos[0]} />
-        <Card todo={todos[1]} />
+        <Card todo={todos[0]} completeToDo={completeToDo} />
+        <Card todo={todos[1]} completeToDo={completeToDo} />
       </ul>
     </>
   );
